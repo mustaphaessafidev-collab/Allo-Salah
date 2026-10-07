@@ -5,11 +5,7 @@ import { StarIcon } from "@/components/ui/icons";
 
 // Placeholder content: replace with a real, approved customer review.
 const testimonial = {
-  quote:
-    "Témoignage client à venir. Remplacez ce texte par l’avis réel d’un client Allo Salah à Casablanca.",
-  name: "Prénom N.",
   initials: "XX",
-  role: "Fonction, Casablanca",
 };
 
 export function Testimonial() {

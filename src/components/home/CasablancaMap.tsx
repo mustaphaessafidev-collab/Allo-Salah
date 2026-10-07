@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   CircleMarker,
   MapContainer,
@@ -46,6 +46,10 @@ function placeName(data: { name?: string; display_name?: string }, fallback: str
 function MapController({ focus }: { focus: MapFocus | null }) {
   const map = useMap();
   const { language, t } = useI18n();
+  const languageRef = useRef(language);
+  const tRef = useRef(t);
+  languageRef.current = language;
+  tRef.current = t;
   const [picked, setPicked] = useState<PickedPlace | null>(null);
   const [user, setUser] = useState<PickedPlace | null>(null);
   const [locateMessage, setLocateMessage] = useState<string | null>(null);
@@ -67,7 +71,7 @@ function MapController({ focus }: { focus: MapFocus | null }) {
     click(event: LeafletMouseEvent) {
       const { lat, lng } = event.latlng;
       const fallback = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
-      setPicked({ lat, lng, label: t("map.selected") });
+      setPicked({ lat, lng, label: tRef.current("map.selected") });
 
       const params = new URLSearchParams({
         format: "jsonv2",
@@ -76,7 +80,7 @@ function MapController({ focus }: { focus: MapFocus | null }) {
         zoom: "17",
       });
       fetch(`https://nominatim.openstreetmap.org/reverse?${params}`, {
-        headers: { "Accept-Language": language === "ar" ? "ar" : "fr" },
+        headers: { "Accept-Language": languageRef.current === "ar" ? "ar" : "fr" },
       })
         .then((response) => (response.ok ? response.json() : null))
         .then((data) => {
@@ -89,12 +93,12 @@ function MapController({ focus }: { focus: MapFocus | null }) {
       setUser({
         lat: event.latlng.lat,
         lng: event.latlng.lng,
-        label: t("map.you"),
+        label: tRef.current("map.you"),
       });
       setLocateMessage(null);
     },
     locationerror() {
-      setLocateMessage(t("map.unavailable"));
+      setLocateMessage(tRef.current("map.unavailable"));
     },
   });
 
@@ -140,7 +144,7 @@ function MapController({ focus }: { focus: MapFocus | null }) {
 }
 
 export function CasablancaMap({ focus }: { focus: MapFocus | null }) {
-  const { t } = useI18n();
+  const { language, t } = useI18n();
   return (
     <MapContainer
       center={[casablancaView.lat, casablancaView.lng]}
@@ -156,7 +160,7 @@ export function CasablancaMap({ focus }: { focus: MapFocus | null }) {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <ZoomControl position="topright" zoomInTitle={t("map.zoomIn")} zoomOutTitle={t("map.zoomOut")} />
+      <ZoomControl key={language} position="topright" zoomInTitle={t("map.zoomIn")} zoomOutTitle={t("map.zoomOut")} />
       <MapController focus={focus} />
     </MapContainer>
   );

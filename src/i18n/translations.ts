@@ -152,8 +152,8 @@ export const fr = {
   estimator: {
     title: "Estimateur Rapide",
     subtitle: "Calculez votre tarif instantané",
-    from: "Départ (ramassage)",
-    to: "Arrivée (destination)",
+    from: "Départ (Ramassage)",
+    to: "Arrivée (Destination)",
     type: "Type de course",
     price: "Tarif estimé",
     range: "Entre 20 et 150 DH",
@@ -316,7 +316,7 @@ export const ar: Stringify<typeof fr> = {
   },
   stats: {
     aria: "ألو صلاح بالأرقام",
-    delayValue: "15 د",
+    delayValue: "15 دقيقة",
     delay: "متوسط المدة في وسط المدينة",
     areasValue: "35+",
     areas: "أحياء مغطاة",
@@ -386,19 +386,19 @@ export const ar: Stringify<typeof fr> = {
       name: "الوسط والقرب",
       areas: "المعاريف، راسين، غوتييه، بوركون، وسط المدينة، الحسن الثاني.",
       short: "المنطقة 1 — الوسط والقرب",
-      duration: "15 – 30 د",
+      duration: "15 – 30 دقيقة",
     },
     z2: {
       name: "الأحياء السكنية والأعمال",
       areas: "أنفا، عين الذئاب، CIL، الواحة، النخيل، سيدي معروف، CFC.",
       short: "المنطقة 2 — سكني وأعمال",
-      duration: "25 – 45 د",
+      duration: "25 – 45 دقيقة",
     },
     z3: {
       name: "الدار البيضاء الكبرى والضواحي",
       areas: "عين السبع، البرنوصي، الحي الحسني، بوسكورة، دار بوعزة.",
       short: "المنطقة 3 — الدار البيضاء الكبرى",
-      duration: "45 – 75 د",
+      duration: "45 – 75 دقيقة",
     },
   },
   estimator: {
