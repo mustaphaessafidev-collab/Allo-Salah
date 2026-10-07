@@ -1,4 +1,7 @@
+"use client";
+
 import type { ComponentType, SVGProps } from "react";
+import { useI18n } from "@/i18n/LanguageProvider";
 import Link from "next/link";
 import {
   ArchiveBoxIcon,
@@ -38,33 +41,39 @@ const visuals: Record<ServiceSlug, Visual> = {
   },
 };
 
+const copyKey: Record<ServiceSlug, "parcels" | "documents" | "shopping" | "urgent"> = {
+  "livraison-colis": "parcels",
+  documents: "documents",
+  "achats-courses": "shopping",
+  "livraison-urgente": "urgent",
+};
+
 const services = (Object.keys(servicePages) as ServiceSlug[]).map((slug) => ({
-  ...servicePages[slug],
+  slug,
+  copy: copyKey[slug],
   ...visuals[slug],
 }));
 
 export function Services() {
+  const { t } = useI18n();
   return (
     <section id="services" aria-labelledby="services-title" className="bg-canvas py-20 sm:py-24">
       <div className="mx-auto max-w-300 px-5 sm:px-6">
         <div className="mx-auto max-w-180 text-center">
           <p className="inline-block rounded-full bg-peach px-3.5 py-1 text-[11px] font-bold tracking-wide text-rust-700 uppercase">
-            Ce que nous livrons
+            {t("services.eyebrow")}
           </p>
           <h2
             id="services-title"
             className="mt-2 text-[2.1rem] leading-tight font-extrabold tracking-tight text-ink sm:text-[2.6rem]"
           >
-            Nos services
+            {t("services.title")}
           </h2>
-          <p className="mt-2 text-base leading-relaxed text-muted sm:text-[17px]">
-            Des solutions de courses et d’expédition pensées pour les particuliers,
-            commerçants et entreprises de Casablanca.
-          </p>
+          <p className="mt-2 text-base leading-relaxed text-muted sm:text-[17px]">{t("services.subtitle")}</p>
         </div>
 
         <ul className="mt-11 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {services.map(({ slug, title, description, Icon, tileClass, linkClass }) => (
+          {services.map(({ slug, copy, Icon, tileClass, linkClass }) => (
             <li key={slug} className="min-w-0">
               <Link
                 href="/services"
@@ -73,13 +82,13 @@ export function Services() {
                 <span className={`grid size-14 place-items-center rounded-xl ${tileClass}`}>
                   <Icon className="size-5.5" />
                 </span>
-                <h3 className="mt-5 text-lg font-bold text-ink">{title}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-muted">{description}</p>
+                <h3 className="mt-5 text-lg font-bold text-ink">{t(`services.${copy}.title`)}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted">{t(`services.${copy}.description`)}</p>
                 <span
                   className={`mt-auto inline-flex items-center gap-1.5 self-start pt-7 text-[13px] font-semibold ${linkClass}`}
                 >
-                  En savoir plus
-                  <ArrowRightIcon className="size-4 transition-transform group-hover:translate-x-0.5" />
+                  {t("services.more")}
+                  <ArrowRightIcon className="size-4 transition-transform group-hover:translate-x-0.5 rtl:-scale-x-100" />
                 </span>
               </Link>
             </li>

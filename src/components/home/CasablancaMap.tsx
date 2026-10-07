@@ -11,6 +11,7 @@ import {
   ZoomControl,
 } from "react-leaflet";
 import type { LatLngExpression, LeafletMouseEvent } from "leaflet";
+import { useI18n } from "@/i18n/LanguageProvider";
 import { casablancaView, type MapFocus } from "@/lib/coverage";
 import "leaflet/dist/leaflet.css";
 
@@ -44,6 +45,7 @@ function placeName(data: { name?: string; display_name?: string }, fallback: str
 
 function MapController({ focus }: { focus: MapFocus | null }) {
   const map = useMap();
+  const { language, t } = useI18n();
   const [picked, setPicked] = useState<PickedPlace | null>(null);
   const [user, setUser] = useState<PickedPlace | null>(null);
   const [locateMessage, setLocateMessage] = useState<string | null>(null);
@@ -65,7 +67,7 @@ function MapController({ focus }: { focus: MapFocus | null }) {
     click(event: LeafletMouseEvent) {
       const { lat, lng } = event.latlng;
       const fallback = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
-      setPicked({ lat, lng, label: "Lieu sélectionné" });
+      setPicked({ lat, lng, label: t("map.selected") });
 
       const params = new URLSearchParams({
         format: "jsonv2",
@@ -74,7 +76,7 @@ function MapController({ focus }: { focus: MapFocus | null }) {
         zoom: "17",
       });
       fetch(`https://nominatim.openstreetmap.org/reverse?${params}`, {
-        headers: { "Accept-Language": "fr" },
+        headers: { "Accept-Language": language === "ar" ? "ar" : "fr" },
       })
         .then((response) => (response.ok ? response.json() : null))
         .then((data) => {
@@ -87,12 +89,12 @@ function MapController({ focus }: { focus: MapFocus | null }) {
       setUser({
         lat: event.latlng.lat,
         lng: event.latlng.lng,
-        label: "Votre position",
+        label: t("map.you"),
       });
       setLocateMessage(null);
     },
     locationerror() {
-      setLocateMessage("Position indisponible");
+      setLocateMessage(t("map.unavailable"));
     },
   });
 
@@ -113,7 +115,7 @@ function MapController({ focus }: { focus: MapFocus | null }) {
           <Popup>{user.label}</Popup>
         </CircleMarker>
       )}
-      <div className="pointer-events-none absolute top-30 right-2.5 z-[1000] flex flex-col items-end gap-2">
+      <div className="pointer-events-none absolute top-30 end-2.5 z-[1000] flex flex-col items-end gap-2">
         <button
           type="button"
           onClick={() => {
@@ -125,7 +127,7 @@ function MapController({ focus }: { focus: MapFocus | null }) {
           onDoubleClick={(event) => event.stopPropagation()}
           className="pointer-events-auto flex h-11 items-center rounded-xl bg-white px-3 text-xs font-semibold text-ink shadow-[0_8px_24px_rgb(22_27_46/0.16)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rust-700"
         >
-          Ma position
+          {t("map.locate")}
         </button>
         {locateMessage && (
           <p className="pointer-events-none rounded-lg bg-white/95 px-2.5 py-1 text-[11px] font-semibold text-ink shadow">
@@ -138,6 +140,7 @@ function MapController({ focus }: { focus: MapFocus | null }) {
 }
 
 export function CasablancaMap({ focus }: { focus: MapFocus | null }) {
+  const { t } = useI18n();
   return (
     <MapContainer
       center={[casablancaView.lat, casablancaView.lng]}
@@ -153,7 +156,7 @@ export function CasablancaMap({ focus }: { focus: MapFocus | null }) {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <ZoomControl position="topright" zoomInTitle="Zoom avant" zoomOutTitle="Zoom arrière" />
+      <ZoomControl position="topright" zoomInTitle={t("map.zoomIn")} zoomOutTitle={t("map.zoomOut")} />
       <MapController focus={focus} />
     </MapContainer>
   );

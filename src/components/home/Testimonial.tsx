@@ -1,3 +1,6 @@
+"use client";
+
+import { useI18n } from "@/i18n/LanguageProvider";
 import { StarIcon } from "@/components/ui/icons";
 
 // Placeholder content: replace with a real, approved customer review.
@@ -10,8 +13,9 @@ const testimonial = {
 };
 
 export function Testimonial() {
+  const { t } = useI18n();
   return (
-    <section aria-label="Avis client" className="relative -mt-12 bg-mist px-5 pb-20 sm:-mt-14 sm:px-6 sm:pb-24">
+    <section aria-label={t("testimonial.aria")} className="relative -mt-12 bg-mist px-5 pb-20 sm:-mt-14 sm:px-6 sm:pb-24">
       <figure className="mx-auto max-w-194 rounded-3xl bg-white px-6 py-8 text-center shadow-[0_10px_30px_rgb(22_27_46/0.10)] sm:px-12 sm:py-9">
         <div aria-hidden className="flex justify-center gap-2 text-amber-500">
           {Array.from({ length: 5 }, (_, i) => (
@@ -19,15 +23,15 @@ export function Testimonial() {
           ))}
         </div>
         <blockquote className="mt-4 text-lg leading-snug font-semibold text-ink italic sm:text-xl">
-          “{testimonial.quote}”
+          “{t("testimonial.quote")}”
         </blockquote>
-        <figcaption className="mt-4 inline-flex items-center gap-3 text-left">
+        <figcaption className="mt-4 inline-flex items-center gap-3 text-start">
           <span className="grid size-10 place-items-center rounded-full bg-peach text-xs font-bold text-rust-700">
             {testimonial.initials}
           </span>
           <span>
-            <span className="block text-[13px] font-bold text-ink">{testimonial.name}</span>
-            <span className="block text-xs text-muted">{testimonial.role}</span>
+            <span className="block text-[13px] font-bold text-ink">{t("testimonial.name")}</span>
+            <span className="block text-xs text-muted">{t("testimonial.role")}</span>
           </span>
         </figcaption>
       </figure>

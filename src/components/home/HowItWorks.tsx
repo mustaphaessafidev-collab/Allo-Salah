@@ -1,4 +1,7 @@
+"use client";
+
 import type { ComponentType, SVGProps } from "react";
+import { useI18n } from "@/i18n/LanguageProvider";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CheckCircleIcon, NotePenIcon } from "@/components/ui/icons";
 
@@ -14,27 +17,24 @@ type Step = {
 const steps: Step[] = [
   {
     number: "01",
-    title: "Vous faites votre demande",
-    description:
-      "Envoyez-nous l’adresse de ramassage et de livraison en quelques secondes via notre formulaire ou directement sur WhatsApp.",
+    title: "how.step1Title",
+    description: "how.step1",
     Icon: NotePenIcon,
     numberClass: "text-rust-700",
     iconClass: "bg-peach text-rust-700",
   },
   {
     number: "02",
-    title: "Nous confirmons votre course",
-    description:
-      "Salah ou un coursier de l’équipe vous confirme le tarif fixe et prend en charge le colis immédiatement avec suivi en direct.",
+    title: "how.step2Title",
+    description: "how.step2",
     Icon: CheckCircleIcon,
     numberClass: "text-forest-700",
     iconClass: "bg-mint-bright text-forest-700",
   },
   {
     number: "03",
-    title: "Votre colis est livré",
-    description:
-      "Remise en mains propres sécurisée avec confirmation instantanée par photo, accusé de réception ou message texte.",
+    title: "how.step3Title",
+    description: "how.step3",
     Icon: CheckCircleIcon,
     numberClass: "text-ink",
     iconClass: "bg-periwinkle text-ink",
@@ -42,6 +42,7 @@ const steps: Step[] = [
 ];
 
 export function HowItWorks() {
+  const { t } = useI18n();
   return (
     <section
       id="comment-ca-marche"
@@ -51,12 +52,11 @@ export function HowItWorks() {
       <div className="mx-auto max-w-300 px-5 sm:px-6">
         <SectionHeading
           id="how-it-works-title"
-          eyebrow="Simplicité & rapidité"
+          eyebrow={t("how.eyebrow")}
           eyebrowClass="bg-periwinkle text-ink"
-          title="Comment ça marche ?"
+          title={t("how.title")}
         >
-          Pas d’application lourde à installer. 3 étapes faciles pour envoyer ou recevoir
-          en toute sérénité.
+          {t("how.subtitle")}
         </SectionHeading>
 
         <ol className="mt-12 grid gap-6 md:grid-cols-3">
@@ -73,8 +73,8 @@ export function HowItWorks() {
                   <Icon className="size-4.5" />
                 </span>
               </div>
-              <h3 className="mt-5 text-lg font-bold text-ink">{title}</h3>
-              <p className="mt-1 text-sm leading-relaxed text-muted">{description}</p>
+              <h3 className="mt-5 text-lg font-bold text-ink">{t(title)}</h3>
+              <p className="mt-1 text-sm leading-relaxed text-muted">{t(description)}</p>
             </li>
           ))}
         </ol>

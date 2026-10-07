@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useI18n } from "@/i18n/LanguageProvider";
 
 type LogoProps = {
   onClick?: () => void;
@@ -6,11 +9,12 @@ type LogoProps = {
 };
 
 export function Logo({ onClick, showBadge = true }: LogoProps) {
+  const { t } = useI18n();
   return (
     <Link
       href="/"
       onClick={onClick}
-      aria-label="Allo Salah — Accueil"
+      aria-label={t("logo.home")}
       className="inline-flex items-center gap-2 rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-rust-700"
     >
       <svg viewBox="0 0 28 16" className="h-4 w-7" aria-hidden>
@@ -24,7 +28,7 @@ export function Logo({ onClick, showBadge = true }: LogoProps) {
       </span>
       {showBadge && (
         <span className="hidden rounded-md bg-peach px-1.5 py-0.5 text-[10px] font-bold tracking-wide whitespace-nowrap text-rust-700 uppercase sm:inline">
-          Casablanca Express
+          {t("logo.badge")}
         </span>
       )}
     </Link>

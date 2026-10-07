@@ -1,18 +1,21 @@
+"use client";
+
 import { CasablancaCoverage } from "@/components/home/CasablancaCoverage";
+import { useI18n } from "@/i18n/LanguageProvider";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export function Coverage() {
+  const { t } = useI18n();
   return (
     <section id="zones" aria-labelledby="coverage-title" className="bg-canvas py-20 sm:py-24">
       <div className="mx-auto max-w-300 px-5 sm:px-6">
         <SectionHeading
           id="coverage-title"
-          eyebrow="Zone de couverture"
+          eyebrow={t("coverage.eyebrow")}
           eyebrowClass="bg-mint-bright text-forest-700"
-          title="Nous livrons partout à Casablanca"
+          title={t("coverage.title")}
         >
-          Une parfaite maîtrise des raccourcis et artères de la métropole pour éviter les
-          embouteillages du boulevard Zerktouni à l’autoroute urbaine.
+          {t("coverage.subtitle")}
         </SectionHeading>
 
         <CasablancaCoverage />

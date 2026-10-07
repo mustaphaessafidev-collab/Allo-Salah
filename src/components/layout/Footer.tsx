@@ -1,45 +1,45 @@
+"use client";
+
 import { Logo } from "@/components/layout/Logo";
+import { useI18n } from "@/i18n/LanguageProvider";
 import { ChatIcon, CheckCircleIcon, ClockIcon, PhoneIcon, PinIcon } from "@/components/ui/icons";
 import { siteConfig, whatsappLink } from "@/lib/site";
 
 const quickLinks = [
-  { label: "Accueil & Suivi", href: "/#accueil" },
-  { label: "Livraisons à moto", href: "/#services" },
-  { label: "Grille tarifaire", href: "/#tarifs" },
-  { label: "Quartiers & Périphérie", href: "/#zones" },
-  { label: "Support Dispatch", href: whatsappLink(), external: true },
-];
+  { key: "footer.linkHome", href: "/#accueil" },
+  { key: "footer.linkMoto", href: "/#services" },
+  { key: "footer.linkPrices", href: "/#tarifs" },
+  { key: "footer.linkAreas", href: "/#zones" },
+  { key: "footer.linkSupport", href: whatsappLink(), external: true },
+] as const;
 
-// Legal pages don't exist yet, so these are rendered as plain text.
-const legalLinks = ["Mentions Légales", "Conditions de Service", "Confidentialité"];
+const legalKeys = ["footer.legal", "footer.terms", "footer.privacy"] as const;
 
 const headingClass = "text-lg font-bold text-ink";
 const linkClass =
   "rounded transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rust-700";
 
 export function Footer() {
+  const { t } = useI18n();
   return (
     <footer className="bg-white">
       <div className="mx-auto max-w-300 px-5 sm:px-6">
         <div className="grid gap-10 pt-12 pb-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           <div>
             <Logo showBadge={false} />
-            <p className="mt-4 max-w-65 text-xs leading-relaxed text-muted">
-              Service de coursier et livraison express à moto à Casablanca. Prise en charge
-              rapide et suivi direct par WhatsApp dans tous les quartiers.
-            </p>
+            <p className="mt-4 max-w-65 text-xs leading-relaxed text-muted">{t("footer.blurb")}</p>
             <p className="mt-3 flex items-center gap-1.5 text-[11px] font-bold text-forest-700">
               <CheckCircleIcon className="size-4" />
-              Opérateur local à Casablanca
+              {t("footer.local")}
             </p>
           </div>
 
           <div>
-            <h2 className={headingClass}>Contact &amp; Agence</h2>
+            <h2 className={headingClass}>{t("footer.contact")}</h2>
             <address className="mt-3 space-y-2 text-xs text-muted not-italic">
               <p className="flex items-start gap-2">
                 <PinIcon className="mt-px size-4 shrink-0 text-rust-700" />
-                Adresse à confirmer, Casablanca, Maroc
+                {t("footer.address")}
               </p>
               <p className="flex items-center gap-2">
                 <PhoneIcon className="size-4 shrink-0 text-rust-700" />
@@ -55,7 +55,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className={`font-bold text-forest-700 ${linkClass}`}
                 >
-                  Assistance WhatsApp 24/7
+                  {t("footer.support")}
                 </a>
               </p>
             </address>
@@ -63,17 +63,17 @@ export function Footer() {
 
           <nav aria-labelledby="footer-nav-title">
             <h2 id="footer-nav-title" className={headingClass}>
-              Navigation Rapide
+              {t("footer.nav")}
             </h2>
             <ul className="mt-3 space-y-1.5 text-xs text-muted">
-              {quickLinks.map(({ label, href, external }) => (
-                <li key={label}>
+              {quickLinks.map(({ key, href, ...link }) => (
+                <li key={key}>
                   <a
                     href={href}
-                    {...(external && { target: "_blank", rel: "noopener noreferrer" })}
+                    {...("external" in link && { target: "_blank", rel: "noopener noreferrer" })}
                     className={linkClass}
                   >
-                    {label}
+                    {t(key)}
                   </a>
                 </li>
               ))}
@@ -81,24 +81,22 @@ export function Footer() {
           </nav>
 
           <div>
-            <h2 className={headingClass}>Disponibilité</h2>
+            <h2 className={headingClass}>{t("footer.availability")}</h2>
             <div className="mt-3 rounded-xl bg-lavender px-4 py-3.5">
               <p className="flex items-center gap-1.5 text-[15px] font-bold text-rust-700">
                 <ClockIcon className="size-4.5" />
-                7j/7 de 1h à 12h
+                {t("footer.hours")}
               </p>
-              <p className="mt-1.5 text-xs leading-relaxed text-muted">
-                Détails des horaires et permanences à confirmer.
-              </p>
+              <p className="mt-1.5 text-xs leading-relaxed text-muted">{t("footer.hoursNote")}</p>
             </div>
           </div>
         </div>
 
         <div className="flex flex-col gap-3 border-t border-line py-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} {siteConfig.name}. Tous droits réservés.</p>
+          <p>{t("footer.rights", { year: new Date().getFullYear() })}</p>
           <ul className="flex flex-wrap gap-x-4 gap-y-1">
-            {legalLinks.map((label) => (
-              <li key={label}>{label}</li>
+            {legalKeys.map((key) => (
+              <li key={key}>{t(key)}</li>
             ))}
           </ul>
         </div>
