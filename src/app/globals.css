@@ -1,26 +1,79 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-ink: #161b2e;
+  --color-muted: #4b5163;
+  --color-canvas: #f8f7fd;
+  --color-mist: #f2f1fc;
+  --color-lavender: #eef0fb;
+  --color-line: #e6e7f2;
+  --color-slate-night: #283044;
+
+  --color-rust-700: #a63c06;
+  --color-rust-800: #8a3105;
+  --color-peach: #fde3d6;
+  --color-apricot: #fed9c2;
+  --color-periwinkle: #dfe4fc;
+
+  --color-forest-700: #0d6b47;
+  --color-forest-800: #0a5639;
+  --color-mint: #c3f5da;
+  --color-mint-strong: #a8efc8;
+  --color-mint-bright: #8ef0bf;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-canvas);
+  color: var(--color-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+.casablanca-map,
+.leaflet-container {
+  font-family: inherit;
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  background: #e7e4da;
+  z-index: 0;
+}
+
+.leaflet-container img {
+  max-width: none;
+  max-height: none;
+}
+
+.leaflet-container .leaflet-control-zoom a,
+.leaflet-container.leaflet-touch .leaflet-bar a {
+  width: 44px;
+  height: 44px;
+  line-height: 44px;
+  font-size: 22px;
+}
+
+.leaflet-bar {
+  border: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgb(22 27 46 / 0.16);
+}
+
+nextjs-portal {
+  display: none !important;
 }
