@@ -8,12 +8,12 @@ export const siteConfig = {
 } as const;
 
 export const navLinks = [
-  { label: "Accueil", href: "/#accueil" },
-  { label: "Services", href: "/#services" },
-  { label: "Tarifs", href: "/#tarifs" },
-  { label: "Zones", href: "/#zones" },
-  { label: "À propos", href: "/#a-propos" },
-  { label: "Contact", href: "/#contact" },
+  { key: "nav.home", id: "accueil" },
+  { key: "nav.services", id: "services" },
+  { key: "nav.pricing", id: "tarifs" },
+  { key: "nav.zones", id: "zones" },
+  { key: "nav.about", id: "apropos" },
+  { key: "nav.contact", id: "contact" },
 ] as const;
 
 export function whatsappLink(message?: string) {

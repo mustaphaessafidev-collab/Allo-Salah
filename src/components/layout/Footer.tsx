@@ -1,16 +1,16 @@
 "use client";
 
 import { Logo } from "@/components/layout/Logo";
+import { SectionLink } from "@/components/layout/SectionLink";
 import { useI18n } from "@/i18n/LanguageProvider";
 import { ChatIcon, CheckCircleIcon, ClockIcon, PhoneIcon, PinIcon } from "@/components/ui/icons";
 import { siteConfig, whatsappLink } from "@/lib/site";
 
 const quickLinks = [
-  { key: "footer.linkHome", href: "/#accueil" },
-  { key: "footer.linkMoto", href: "/#services" },
-  { key: "footer.linkPrices", href: "/#tarifs" },
-  { key: "footer.linkAreas", href: "/#zones" },
-  { key: "footer.linkSupport", href: whatsappLink(), external: true },
+  { key: "footer.linkHome", id: "accueil" },
+  { key: "footer.linkMoto", id: "services" },
+  { key: "footer.linkPrices", id: "tarifs" },
+  { key: "footer.linkAreas", id: "zones" },
 ] as const;
 
 const legalKeys = ["footer.legal", "footer.terms", "footer.privacy"] as const;
@@ -66,17 +66,23 @@ export function Footer() {
               {t("footer.nav")}
             </h2>
             <ul className="mt-3 space-y-1.5 text-xs text-muted">
-              {quickLinks.map(({ key, href, ...link }) => (
+              {quickLinks.map(({ key, id }) => (
                 <li key={key}>
-                  <a
-                    href={href}
-                    {...("external" in link && { target: "_blank", rel: "noopener noreferrer" })}
-                    className={linkClass}
-                  >
+                  <SectionLink sectionId={id} className={linkClass}>
                     {t(key)}
-                  </a>
+                  </SectionLink>
                 </li>
               ))}
+              <li>
+                <a
+                  href={whatsappLink()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={linkClass}
+                >
+                  {t("footer.linkSupport")}
+                </a>
+              </li>
             </ul>
           </nav>
 

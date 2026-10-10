@@ -28,7 +28,15 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
+}
+
+#accueil,
+#services,
+#tarifs,
+#zones,
+#apropos,
+#contact {
+  scroll-margin-top: 5.5rem;
 }
 
 body {

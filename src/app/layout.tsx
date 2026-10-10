@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Sans_Arabic, Plus_Jakarta_Sans } from "next/font/google";
+import { HashScrollRestore } from "@/components/layout/HashScrollRestore";
 import { LanguageProvider } from "@/i18n/LanguageProvider";
 import "./globals.css";
 
@@ -32,6 +33,7 @@ export default function RootLayout({
     >
       <body className="font-sans">
         <LanguageProvider initialLanguage="fr">
+          <HashScrollRestore />
           {children}
         </LanguageProvider>
       </body>

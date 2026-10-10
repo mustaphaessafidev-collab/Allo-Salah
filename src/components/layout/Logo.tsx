@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { SectionLink } from "@/components/layout/SectionLink";
 import { useI18n } from "@/i18n/LanguageProvider";
 
 type LogoProps = {
@@ -11,9 +11,9 @@ type LogoProps = {
 export function Logo({ onClick, showBadge = true }: LogoProps) {
   const { t } = useI18n();
   return (
-    <Link
-      href="/"
-      onClick={onClick}
+    <SectionLink
+      sectionId="accueil"
+      onNavigate={onClick}
       aria-label={t("logo.home")}
       className="inline-flex items-center gap-2 rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-rust-700"
     >
@@ -31,6 +31,6 @@ export function Logo({ onClick, showBadge = true }: LogoProps) {
           {t("logo.badge")}
         </span>
       )}
-    </Link>
+    </SectionLink>
   );
 }

@@ -43,7 +43,7 @@ const reasons: Reason[] = [
 export function WhyChooseUs() {
   const { t } = useI18n();
   return (
-    <section id="pourquoi-allo-salah" aria-labelledby="why-title" className="bg-mist py-20 sm:py-24">
+    <section id="apropos" aria-labelledby="why-title" className="bg-mist py-20 sm:py-24">
       <div className="mx-auto max-w-300 px-5 sm:px-6">
         <SectionHeading
           id="why-title"
