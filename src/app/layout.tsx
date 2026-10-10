@@ -18,6 +18,9 @@ const arabic = Noto_Sans_Arabic({
 export const metadata: Metadata = {
   title: "Allo Salah",
   description: "Allo Salah",
+  verification: {
+    google: "m2ugXbJjJlnmbh-tM56sZ3p_jri3vMYr0PaZRAeF6fw",
+  },
 };
 
 export default function RootLayout({
